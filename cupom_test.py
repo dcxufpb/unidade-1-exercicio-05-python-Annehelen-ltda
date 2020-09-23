@@ -33,19 +33,19 @@ IE: 244.898.500.113
 
 def test_nome_vazio():
     global nome_loja
-    nome_loja = ""
-    verifica_campo_obrigatorio("O campo logradouro do endereço é obrigatório") 
-    nome_loja = "Arcos Dourados Com. de Alimentos LTDA"
+    cupom.nome_loja = ""
+    verifica_campo_obrigatorio("O campo nome da loja é obrigatório") 
+    cupom.nome_loja = "Arcos Dourados Com. de Alimentos LTDA"
 
 def test_logradouro_vazio():
     global logradouro
-    logradouro = ""
+    cupom.logradouro = ""
     verifica_campo_obrigatorio("O campo logradouro do endereço é obrigatório")
-    logradouro = "Av. Projetada Leste"
+    cupom.logradouro = "Av. Projetada Leste"
 
 def test_numero_zero():
     global numero
-    numero = 0
+    cupom.numero = 0
     assert cupom.dados_loja() == '''Arcos Dourados Com. de Alimentos LTDA
 Av. Projetada Leste, s/n EUC F32/33/34
 Br. Sta Genebra - Campinas - SP
@@ -58,25 +58,25 @@ IE: 244.898.500.113
 
 def test_municipio_vazio():
     global municipio
-    municipio = ""
+    cupom.municipio = ""
     verifica_campo_obrigatorio("O campo município do endereço é obrigatório")
-    municipio = "Campinas"
+    cupom.municipio = "Campinas"
 
 def test_estado_vazio():
     global estado
-    estado = ""
+    cupom.estado = ""
     verifica_campo_obrigatorio("O campo estado do endereço é obrigatório")
-    estado = "SP"
+    cupom.estado = "SP"
 
 def test_cnpj_vazio():
     global cnpj
-    cnpj = ""
+    cupom.cnpj = ""
     verifica_campo_obrigatorio("O campo CNPJ da loja é obrigatório")
-    cnpj = "42.591.651/0797-34"
+    cupom.cnpj = "42.591.651/0797-34"
 
 def test_inscricao_estadual_vazia():
     global inscricao_estadual
-    inscricao_estadual = ""
+    cupom.inscricao_estadual = ""
     verifica_campo_obrigatorio("O campo inscrição estadual da loja é obrigatório")
     inscricao_estadual = "244.898.500.113"
 
@@ -95,19 +95,27 @@ def test_exercicio2_customizado():
     global inscricao_estadual
     
     # Defina seus próprios valores para as variáveis a seguir
-    nome_loja = ""
-    logradouro = ""
-    numero = 0
-    complemento = ""
-    bairro = ""
-    municipio = ""
-    estado = ""
-    cep = ""
-    telefone = ""
-    observacao = ""
-    cnpj = ""
-    inscricao_estadual = ""
+    cupom.nome_loja = "Smelly Cat"
+    cupom.logradouro = "Rua Etheria"
+    cupom.numero = 205
+    cupom.complemento = "Perto da velhinha que mora em uma caverna"
+    cupom.bairro = "Br. Templo do Cristal"
+    cupom.municipio = "Beach City"
+    cupom.estado = "BC"
+    cupom.cep = "8051-604"
+    cupom.telefone = "(66)4002-8922"
+    cupom.observacao = "Por Favor ignorar os exército Intergalácticos em guerra tentando dominar o planeta"
+    cupom.cnpj = "53.409.609/0001-85"
+    cupom.inscricao_estadual = "512.670.302.653"
+
+    expected = "Smelly Cat\n"
+    expected += "Rua Etheria, 205 Perto da velhinha que mora em uma caverna\n"
+    expected += "Br. Templo do Cristal - Beach City - BC\n"
+    expected += "CEP:8051-604 Tel (66)4002-8922\n"
+    expected += "Por Favor ignorar os exército Intergalácticos em guerra tentando dominar o planeta\n"
+    expected +="CNPJ: 53.409.609/0001-85\n"
+    expected += "IE: 512.670.302.653\n"
+
 
     #E atualize o texto esperado abaixo
-    assert cupom.dados_loja() == '''
-'''
+    assert cupom.dados_loja() == expected
